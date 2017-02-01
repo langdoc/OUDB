@@ -25,4 +25,4 @@ Documents our data conversion scripts
 
 Documents conventions for the structure of archived data and metadata
 
-[ELAN-XML (EAF)](https://github.com/langdoc/OUDB/blob/master/ELAN.md)
+[[ELAN-XML (EAF)](https://github.com/langdoc/OUDB/blob/master/ELAN.md)] [[Metadata-XML (CMDI)](https://github.com/langdoc/OUDB/blob/master/CMDI.md)]
