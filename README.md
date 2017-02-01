@@ -1,14 +1,17 @@
 # OUDB goes archive…
 
-This repository documents the work with archiving the corpus materials collected and annotated by the project [Ob-Ugric Database](http://www.oudb.gwi.uni-muenchen.de) at [The Language Archive](https://tla.mpi.nl). Collaborators are:
+This repository documents work aiming at the archiving of corpus materials collected and annotated by the project [Ob-Ugric Database](http://www.oudb.gwi.uni-muenchen.de) at [The Language Archive](https://tla.mpi.nl). 
 
-* Axel Wisiorek (Munic)
+Collaborators are:
+
+* Axel Wisiorek (Munich)
 * Gwen Eva Janda (Munich)
+* Ira Maier (Munich)
 * Michael Rießler (Freiburg)
 * Niko Partanen (Hamburg)
 * Zsófia Schön (Munich)
 
-## Structure
+## Structure of the documentation
 
 ### Meetings
 
@@ -20,4 +23,4 @@ Documents our data conversion scripts
 
 ### Conventions
 
-Documents conventions for the structure of data and metadata
+Documents conventions for the structure of archived data and metadata
