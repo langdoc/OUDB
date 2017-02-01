@@ -1,5 +1,7 @@
 #Meeting 30.01.2017
 
+München, 12:00–16:00, Axel, Ira, Michael, Zsófia
+
 ##Besprochen
 * LAT = System, Lamus = Tool, TLA = Archive
 * vorerst werden plain Texte (Texte aus der Homepagemaske) und glossierte Texte (FLEx), beides sammt Metadaten und Tonaufnahmen (falls vorhanden) archiviert, archivierung von Photos erfolgt später
