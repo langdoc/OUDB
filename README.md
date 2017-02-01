@@ -1,6 +1,6 @@
-# OUDB goes archive…
+# OUDB Archive
 
-This repository documents work aiming at the archiving of corpus materials collected and annotated by the project [Ob-Ugric Database](http://www.oudb.gwi.uni-muenchen.de) at [The Language Archive](https://tla.mpi.nl). 
+This repository documents work aiming at the creation of the [OUDB Archive](https://hdl.handle.net/1839/88A38A1F-5367-4415-B5F9-E86E231AFE66@view), i.e. converting the corpus materials collected and annotated by the project [Ob-Ugric Database (OUDB)](http://www.oudb.gwi.uni-muenchen.de) into archivable format and store them at [The Language Archive](https://tla.mpi.nl). Our work is carried out collaboratively between OUDB at the LMU University Münchem and the [Langdoc Group](http://langdoc.github.io) at the University of Freiburg. 
 
 Collaborators are:
 
@@ -8,7 +8,7 @@ Collaborators are:
 * Gwen Eva Janda (Munich)
 * Ira Maier (Munich)
 * Michael Rießler (Freiburg)
-* Niko Partanen (Hamburg)
+* Niko Partanen (Freiburg/Hamburg)
 * Zsófia Schön (Munich)
 
 ## Structure of the documentation
