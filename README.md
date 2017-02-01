@@ -15,7 +15,7 @@ Collaborators are:
 
 ### Meetings
 
-Documents the minutes of our meetings
+[30.01.2017](https://github.com/langdoc/OUDB/blob/master/Meeting170130.md)
 
 ### Scripts
 
@@ -24,3 +24,5 @@ Documents our data conversion scripts
 ### Conventions
 
 Documents conventions for the structure of archived data and metadata
+
+[ELAN-XML (EAF)](https://github.com/langdoc/OUDB/blob/master/ELAN.md)
