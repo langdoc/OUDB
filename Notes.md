@@ -8,6 +8,7 @@ This file is for preliminary notes, as well as links to available tools or other
 * relevant page from the ELAN manual: http://www.mpi.nl/corpus/html/elan/ch01s04s02.html#Sec_Importing_a_document_from_Fieldworks_Language_Explorer_FLEx
 
 We will create two different types of ELAN files:
+
 1. ELAN files without linked audio
   * a) they come from FLEx
   * b) they come from the transcription files without annotations
