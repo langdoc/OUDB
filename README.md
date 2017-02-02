@@ -22,3 +22,6 @@ This repository includes the documention of a project aiming at the creation of 
 
 ### Conventions
 [[ELAN-XML (EAF)](https://github.com/langdoc/OUDB/blob/master/ELAN.md)] [[Metadata-XML (CMDI)](https://github.com/langdoc/OUDB/blob/master/CMDI.md)]
+
+### Other
+[File with notes and links to ressources](https://github.com/langdoc/OUDB/blob/master/Notes.md)
