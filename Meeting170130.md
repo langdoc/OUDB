@@ -3,20 +3,20 @@
 München, 12:00–16:00, Axel, Ira, Michael, Zsófia
 
 ##Besprochen
-* TLA = The Language Archive (das Archiv in Nijmwegen), LAT = Archivsystem ("lat corpus"), Lamus = Browser-basiertes Tool zum Hochladen der Daten ins Archiv, Arbil = Offline-Tool zum (manuellen) Erstellen der Metadaten-Dateien in CMDI 
+* TLA = The Language Archive (das Archiv in Nijmwegen), LAT = Archivsystem ("lat corpus"), Lamus = Browser-basiertes Tool zum Hochladen der Daten ins Archiv, Arbil = Offline-Tool zum (manuellen) Erstellen der Metadaten-Dateien in [CMDI](https://github.com/langdoc/OUDB/blob/master/CMDI.md) 
 * vorerst werden plain Texte (Texte aus der Homepagemaske) und glossierte Texte (FLEx), beides sammt Metadaten und Tonaufnahmen (falls vorhanden) archiviert, Archivierung von Photos erfolgt später
 * im Archiv wird es 3 Unterordner geben: 1) für "ELAN" für alle Textdaten (inkl. Audio, falls vorhanden und inkl. linguistische Annotationen, falls vorhanden), 2) für "FLEx" für einen XML-Export/FLEx-Backup der Texte mit Glossen und dem Lexikon, 3) für  "Photos"
-* plain Texte, Texte in FLEx und Audio aus dem OUDB-Projekt werden in ELAN-XML archiviert
+* plain Texte, Texte in FLEx und Audio aus dem OUDB-Projekt werden in [ELAN-XML](https://github.com/langdoc/OUDB/blob/master/ELAN.md) archiviert
 * sie werden entweder mit Lamus oder direkt ins Archiv eingeladen
-* unsere Metadaten werden aus der Tabelle ins CMDI-Format gebracht, ev. mit Arbil
+* unsere Metadaten werden aus der Tabelle ins [CMDI-Format](https://github.com/langdoc/OUDB/blob/master/CMDI.md) gebracht, ev. mit Arbil
 * Datenaustausch und Minutes über dieses GitHub-Verzeichnis
-* OUDB Knoten im Archiv: jeder Text kriegt eine Session (Mappe), in die alle zu ihm gehörende Daten und Metadaten reinkommen (.wav, .eaf, .cmdi etc.)
+* OUDB Knoten im Archiv: jeder Text kriegt eine Session (Mappe, Order), in die alle zu ihm gehörende Daten und Metadaten reinkommen (.wav, .eaf, .cmdi etc.)
 * Zugang zu den jeweiligen Sessions: frei mit Code of Conduct von TLA; falls OUDB wünscht kann auch eine andere Lizenz definiert werden
-* Metadaten für Archivkatalog: CMDI-Format, minimalistisch machen, vorhandene CMDI Kategorien nehmen, nicht alle unsere Metadaten verwenden; falls gewünscht können weitere Metadaten aber innerhalb des OUDB-Archivs als separate Datei zum Runterladen archiviert werden
+* Metadaten für Archivkatalog: [CMDI-Format](https://github.com/langdoc/OUDB/blob/master/CMDI.md), minimalistisch machen, vorhandene CMDI Kategorien nehmen, nicht alle unsere Metadaten verwenden; falls gewünscht können weitere Metadaten aber innerhalb des OUDB-Archivs als separate Datei zum Runterladen archiviert werden
 * Besprechungen (per Skype) regelmäßig
 
 ##Fertig (zusätzlich zu dem was oben angegeben ist)
-* Michael hat für das ELAN-XML eine ELAN-Struktur erstellt (vorläufiger Dateiname war: SK_722,  anhand von unserer Datenstruktur in FLEx Analyze Tab)
+* Michael hat für das [ELAN-XML](https://github.com/langdoc/OUDB/blob/master/ELAN.md) eine ELAN-Struktur erstellt (anhand von unserer Datenstruktur in FLEx Analyze Tab)
 * Axel und Michael haben ein vorläufiges Arbil-Schema angelegt
 
 ##Vorerst zu machen
