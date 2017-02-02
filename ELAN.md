@@ -6,11 +6,30 @@ ELAN stores its data in XML with the extension EAF.
 
 Here is an [ELAN template file](https://github.com/langdoc/OUDB/edit/master/ELAN-template.etf) (XML with the extension ETF) including the defined tier hierarchy and the maximal set of tiers for a session with one speaker.
 
-Tier name | Description                                       | Note
---------- | ------------------------------------------------- | -----------------------
-ref@ABC   | for unique reference, time aligned, no parent     | obligatory
-code@ABC  | for transcription, symbolically associated to ref | only Zsófia (coded IPA)
-orth@ABC  | for transcription, symbolically associated to ref | obligatory
+Tier name     | Description                                           | Note
+------------- | ------------------------------------------------------| -----------------------
+ref@ABC       | for unique reference, time aligned, no parent         | obligatory
+code@ABC      | for transcription, symbolically associated to ref     | facultative (only Zsófia, i.e. her coded IPA)
+orth@ABC      | for transcription, symbolically associated to ref     | obligatory
+word@ABC      | for tokens, symbolically subdivided orth              | ??  
+morph@ABC     | for morphemes, symbolically subdivided word           | only for FLEx (and there obligatory)
+morph-var@ABC | for allomorphs, symbolically associated to morph      | only for FLEx (and there facultative)
+lemma@ABC     | for lemma, symbolically subdivided morph              | only for FLEx (and there obligatory)
+gloss@ABC     | for gloss, symbolically associated to morph           | only for FLEx (and there obligatory)
+pos@ABC       | for pos, symbolically associated to morph             |
+ft-rus@ABC    | for free translation, symbolically associated to orth | ??     
+ft-hun@ABC    | for free translation, symbolically associated to orth | ?? 
+ft-eng@ABC    | for free translation, symbolically associated to orth | ?? 
+ft-fin@ABC    | for free translation, symbolically associated to orth | ?? 
+
+### Glossary
+
+* gloss = either English translation of lemma or morphological category labels included in FLEx
+* lemma = refers here to the FLEx dictionary entry for both free morphemes (i.e. a "true lemma") and bound morphemes (i.e. afixes, clitica, etc.)
+* morpheme = referes here to *linear* morphemes listed in the FLEx dictionary
+* pos = here "part of morpheme"
+* token = includes punctuation marks
+* transcription = here in IPA (or pre-coded IPA)
 
 ## Multiple speakers
 
