@@ -16,7 +16,7 @@ morph@ABC     | for morphemes, symbolically subdivided word           | only for
 morph-var@ABC | for allomorphs, symbolically associated to morph      | only for FLEx (and there facultative)
 lemma@ABC     | for lemma, symbolically subdivided morph              | only for FLEx (and there obligatory)
 gloss@ABC     | for gloss, symbolically associated to morph           | only for FLEx (and there obligatory)
-pos@ABC       | for pos, symbolically associated to morph             |
+pos@ABC       | for pos, symbolically associated to morph             | only for FLEx (and there obligatory)
 ft-rus@ABC    | for free translation, symbolically associated to orth | ??     
 ft-hun@ABC    | for free translation, symbolically associated to orth | ?? 
 ft-eng@ABC    | for free translation, symbolically associated to orth | ?? 
@@ -24,12 +24,12 @@ ft-fin@ABC    | for free translation, symbolically associated to orth | ??
 
 ### Glossary
 
-* gloss = either English translation of lemma or morphological category labels included in FLEx
-* lemma = refers here to the FLEx dictionary entry for both free morphemes (i.e. a "true lemma") and bound morphemes (i.e. afixes, clitica, etc.)
+* gloss = either English translation of *true* lemma or morphological category labels included in FLEx (for bound morphemes)
+* lemma = refers here to the FLEx dictionary entry for both free morphemes (i.e. a true lemma) and bound morphemes (i.e. afixes, clitica, etc.)
 * morpheme = referes here to *linear* morphemes listed in the FLEx dictionary
 * pos = here "part of morpheme"
-* token = includes punctuation marks
-* transcription = here in IPA (or pre-coded IPA)
+* token = word tokens and punctuation marks
+* transcription = here in IPA (or Zsófia's pre-coded IPA)
 
 ## Multiple speakers
 
@@ -37,7 +37,7 @@ In sessions with multiple speakers, each speaker gets its own set of tiers marke
 
 ## Language attributes
 
-This is how ELAN stores that kind of language information in EAF:
+Several tiers (at least orth, word, and the different translations) include data in a specific language, which should be coded in EAF. This is how ELAN stores that kind of language information in EAF:
 
 ```
 <TIER LANG_REF="kca" LINGUISTIC_TYPE_REF="khanty" TIER_ID="khanty"/>
