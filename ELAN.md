@@ -1,6 +1,20 @@
-This is the start of a file documenting our ELAN (EAF) structure.
+#ELAN
 
-# Language attribute
+ELAN stores its data in XML with the extension EAF.
+
+##Tier structure
+
+Here is an [ELAN template file](https://github.com/langdoc/OUDB/edit/master/ELAN-template.etf) (XML with the extension ETF) including the defined tier hierarchy and the maximal set of tiers for a session with one speaker.
+
+Tier name | Description
+--------- | -----------
+ref@ABC   | for unique reference, time aligned, no parent
+
+## Multiple speakers
+
+In sessions with multiple speakers, each speaker gets its own set of tiers marked with "@ABC" in the tier name ("ABC" is the speaker name abbreviation, consistent with the speaker metadata. 
+
+## Language attributes
 
 This is how ELAN stores that kind of language information in EAF:
 
