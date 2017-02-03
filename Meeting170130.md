@@ -4,7 +4,7 @@ München, 12:00–16:00, Axel, Ira, Michael, Zsófia
 
 ##Besprochen
 * TLA = The Language Archive (das Archiv in Nijmwegen), LAT = Archivsystem ("lat corpus"), Lamus = Browser-basiertes Tool zum Hochladen der Daten ins Archiv, Arbil = Offline-Tool zum (manuellen) Erstellen der Metadaten-Dateien in [CMDI](https://github.com/langdoc/OUDB/blob/master/CMDI.md) 
-* vorerst werden plain Texte (Texte aus der Homepagemaske) und glossierte Texte (FLEx), beides sammt Metadaten und Tonaufnahmen (falls vorhanden) archiviert, Archivierung von Photos erfolgt später
+* vorerst werden plain Texte (Texte aus der Homepagemaske) und glossierte Texte (FLEx), beides samt Metadaten und Tonaufnahmen (falls vorhanden) archiviert, Archivierung von Photos erfolgt später
 * im Archiv wird es 3 Unterordner geben: 1) für "ELAN" für alle Textdaten (inkl. Audio, falls vorhanden und inkl. linguistische Annotationen, falls vorhanden), 2) für "FLEx" für einen XML-Export/FLEx-Backup der Texte mit Glossen und dem Lexikon, 3) für  "Photos"
 * plain Texte, Texte in FLEx und Audio aus dem OUDB-Projekt werden in [ELAN-XML](https://github.com/langdoc/OUDB/blob/master/ELAN.md) archiviert
 * sie werden entweder mit Lamus oder direkt ins Archiv eingeladen
