@@ -20,8 +20,8 @@ Date	rec_date
 
 Genre	genre_content
 
-##Content_Language
-Content_Language>descriptions>Description dialect
+##Content_Language>descriptions
+Description dialect
 
 ##Actor:Speaker (nur wenn vorhanden)
 Name	informant-ABKUERZUNG (LISTE ZSÓFI)
@@ -44,4 +44,5 @@ Age	'Unspecified'
 BirthDate	'Unspecified'
 
 Sex	'Unspecified'
+
 Anonymized	'Unspecified'
