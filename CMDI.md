@@ -9,9 +9,9 @@ Link to a [CMDI validator tool](https://nexus.clarin.eu/service/local/repositori
 how to create cmdi using arbil: (https://www.clarin.eu/faq/how-do-i-create-new-cmdi-metadata-file) - using imdi-session-profile
 
 
-#OUDB-Metadata
+##OUDB-Metadata
 
-##MD
+###MD
 Name	dialect-KUERZEL.'_'.id_text
 
 Title	title_vernacular
@@ -20,10 +20,10 @@ Date	rec_date
 
 Genre	genre_content
 
-##Content_Language>descriptions
+###Content_Language>descriptions
 Description dialect
 
-##Actor:Speaker (nur wenn vorhanden)
+###Actor:Speaker (nur wenn vorhanden)
 Name	informant-ABKUERZUNG (LISTE ZSÓFI)
 
 Age	'Unspecified'
@@ -35,7 +35,7 @@ Sex	'Unspecified'
 Anonymized	'Unspecified'
 
 
-##Actor:Collector (obligatorisch)
+###Actor:Collector (obligatorisch)
 
 Name	collector
 
