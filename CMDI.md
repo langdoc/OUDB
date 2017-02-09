@@ -24,7 +24,7 @@ Genre	genre_content
 Description dialect
 
 ###Actor:Speaker (nur wenn vorhanden)
-Name	informant-ABKUERZUNG (LISTE ZSÓFI)
+Name	informant-ABKUERZUNG (LISTE ZSÓFI + generiert von Ira)
 
 Age	'Unspecified'
 
