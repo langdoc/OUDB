@@ -13,8 +13,11 @@ how to create cmdi using arbil: (https://www.clarin.eu/faq/how-do-i-create-new-c
 
 ##MD
 Name	dialect-KUERZEL.'_'.id_text
+
 Title	title_vernacular
+
 Date	rec_date
+
 Genre	genre_content
 
 ##Content_Language
@@ -22,15 +25,23 @@ Content_Language>descriptions>Description dialect
 
 ##Actor:Speaker (nur wenn vorhanden)
 Name	informant-ABKUERZUNG (LISTE ZSÓFI)
+
 Age	'Unspecified'
+
 BirthDate	'Unspecified'
+
 Sex	'Unspecified'
+
 Anonymized	'Unspecified'
 
 
 ##Actor:Collector (obligatorisch)
+
 Name	collector
+
 Age	'Unspecified'
+
 BirthDate	'Unspecified'
+
 Sex	'Unspecified'
 Anonymized	'Unspecified'
