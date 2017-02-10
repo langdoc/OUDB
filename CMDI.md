@@ -12,37 +12,37 @@ how to create cmdi using arbil: (https://www.clarin.eu/faq/how-do-i-create-new-c
 ##OUDB-Metadata
 
 ###MD
-Name	dialect-KUERZEL.'_'.id_text
+Name | dialect-KUERZEL.'_'.id_text
 
-Title	title_vernacular
+Title | title_vernacular
 
-Date	rec_date
+Date | rec_date
 
-Genre	genre_content
+Genre | genre_content
 
 ###Content_Language>descriptions
-Description dialect
+Description | dialect
 
 ###Actor:Speaker (nur wenn vorhanden)
-Name	informant-ABKUERZUNG (LISTE ZSÓFI + generiert von Ira)
+Name | informant-ABKUERZUNG (LISTE ZSÓFI + generiert von Ira)
 
-Age	'Unspecified'
+Age | 'Unspecified'
 
-BirthDate	'Unspecified'
+BirthDate | 'Unspecified'
 
-Sex	'Unspecified'
+Sex | 'Unspecified'
 
-Anonymized	'Unspecified'
+Anonymized | 'Unspecified'
 
 
 ###Actor:Collector (obligatorisch)
 
-Name	collector
+Name | collector
 
-Age	'Unspecified'
+Age | 'Unspecified'
 
-BirthDate	'Unspecified'
+BirthDate | 'Unspecified'
 
-Sex	'Unspecified'
+Sex | 'Unspecified'
 
-Anonymized	'Unspecified'
+Anonymized | 'Unspecified'
