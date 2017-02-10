@@ -11,38 +11,45 @@ how to create cmdi using arbil: (https://www.clarin.eu/faq/how-do-i-create-new-c
 
 ##OUDB-Metadata
 
+
 ###MD
-Name | dialect-KUERZEL.'_'.id_text
+CMDI key | DB value | example value
+------------ | ------------- | -------------
+Name | dialect-KUERZEL.'_'.id_text | YK_1523
+Title | title_vernacular | iːttən əntə nɛripti (AJM)
+Date | rec_date | 2017
+Genre | genre_content | Tales (tal)
+Continent | 'Asia' | 
+Continent | 'Russian Federation' | 
+Project | 'OUDB' | 
 
-Title | title_vernacular
 
-Date | rec_date
-
-Genre | genre_content
+###Content_Language
+CMDI key | DB value | example value
+------------ | ------------- | -------------
+Id | dialect-GROUP-ISO | ISO639-3:kca
+Name | dialect-GROUP-NAME | Khanty
 
 ###Content_Language>descriptions
-Description | dialect
+CMDI key | DB value | example value
+------------ | ------------- | -------------
+Description | dialect | yugan khanty (YK)
 
-###Actor:Speaker (nur wenn vorhanden)
-Name | informant-ABKUERZUNG (LISTE ZSÓFI + generiert von Ira)
-
-Age | 'Unspecified'
-
-BirthDate | 'Unspecified'
-
-Sex | 'Unspecified'
-
-Anonymized | 'Unspecified'
+###Actor:Collector
+CMDI key | DB value | example value
+------------ | ------------- | -------------
+Name | collector | Zsófia Schön
+Age | 'Unspecified' | 
+BirthDate | 'Unspecified' | 
+Sex | 'Unspecified' | 
+Anonymized | 'Unspecified' | 
 
 
-###Actor:Collector (obligatorisch)
-
-Name | collector
-
-Age | 'Unspecified'
-
-BirthDate | 'Unspecified'
-
-Sex | 'Unspecified'
-
-Anonymized | 'Unspecified'
+###Actor:Speaker/Signer (optional, repeated)
+CMDI key | DB value | example value
+------------ | ------------- | -------------
+Name | informant-ABKUERZUNG (LISTE ZSÓFI + generiert von Ira) | OAL
+Age | 'Unspecified' | 
+BirthDate | 'Unspecified' | 
+Sex | 'Unspecified' | 
+Anonymized | 'Unspecified' | 
