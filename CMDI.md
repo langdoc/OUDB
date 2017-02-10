@@ -17,7 +17,7 @@ CMDI key | DB value | example value
 ------------ | ------------- | -------------
 Name | dialect-KUERZEL.'_'.id_text | YK_1523
 Title | title_vernacular | iːttən əntə nɛripti (AJM)
-Date | rec_date | 2017
+Date | rec_date / 'Unspecified' | 2017
 Genre | genre_content | Tales (tal)
 Continent | 'Asia' | 
 Continent | 'Russian Federation' | 
