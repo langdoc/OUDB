@@ -17,7 +17,7 @@ CMDI key | DB value | example value
 ------------ | ------------- | -------------
 Name | dialect-KUERZEL.'_'.id_text | YK_1523
 Title | title_vernacular | iːttən əntə nɛripti (AJM)
-Date | rec_date / 'Unspecified' | 2017
+Date | rec_date / 'Unspecified' | 2015
 Genre | genre_content | Tales (tal)
 Continent | 'Asia' | 
 Continent | 'Russian Federation' | 
@@ -38,7 +38,7 @@ Description | dialect | yugan khanty (YK)
 ###Actor:Collector
 CMDI key | DB value | example value
 ------------ | ------------- | -------------
-Name | collector | Zsófia Schön
+Name | collector | Kayukova & Schön (AZ)
 Age | 'Unspecified' | 
 BirthDate | 'Unspecified' | 
 Sex | 'Unspecified' | 
