@@ -1,6 +1,6 @@
 
 
-select concat("<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+select concat(replace(substring_index(dialect,'(',-1),')',''),"_",id_text) cmdi_name,concat("<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <CMD xmlns=\"http://www.clarin.eu/cmd/\"
      xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"
      CMDVersion=\"1.1\"
@@ -94,4 +94,4 @@ select concat("<?xml version=\"1.0\" encoding=\"UTF-8\"?>
       </Session>
    </Components>
 </CMD>
-") from documents_info
+") cmdi_content from documents_info
