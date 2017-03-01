@@ -6,7 +6,7 @@ select concat("<?xml version=\"1.0\" encoding=\"UTF-8\"?>
      CMDVersion=\"1.1\"
      xsi:schemaLocation=\"http://www.clarin.eu/cmd/ http://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/profiles/clarin.eu:cr1:p_1271859438204/xsd \">
    <Header>
-      <MdCreator>oudb</MdCreator>
+      <MdCreator>axel</MdCreator>
       <MdCreationDate>2017-02-01+01:00</MdCreationDate>
       <MdProfile>clarin.eu:cr1:p_1271859438204</MdProfile>
    </Header>
@@ -21,7 +21,9 @@ select concat("<?xml version=\"1.0\" encoding=\"UTF-8\"?>
          replace(substring_index(dialect,'(',-1),')',''),"_",id_text,
          "</Name>
          <Title>iːttən əntə nɛripti (AJM)</Title>
-         <Date>2017</Date>
+         <Date>",
+         IF(rec_date,rec_date,'Unspecified'),
+         "</Date>
          <MDGroup>
             <Location>
                <Continent>Asia</Continent>
