@@ -4,7 +4,7 @@ import pymysql
 from pymysql import connect, err, sys, cursors
 
 #Verbindung zur DB aufbauen (noch ausfüllen)
-dbObj = pymysql.connect(host = 'localhost', port = 3306, user = 'root', passwd = '', db = 'babel', charset='utf8')
+dbObj = pymysql.connect(host = '', port = 0, user = '', passwd = '', db = 'babel', charset='utf8')
 cursor = dbObj.cursor();
 #alle IDs auslesen
 cursor.execute('select distinct id_text from documents_info order by id_text')
