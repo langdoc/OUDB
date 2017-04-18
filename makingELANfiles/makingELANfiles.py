@@ -9,8 +9,9 @@ import pytz
 import re
 from ZugangsdatenDB import getZugangsdaten
 
-#Verbindung zur DB aufbauen
 hostname, portname, username, passwdname, dbname = getZugangsdaten()
+
+#Verbindung zur DB aufbauen
 dbObj = pymysql.connect(host = hostname, port = portname, user = username, passwd = passwdname, db = dbname, charset='utf8')
 cursor = dbObj.cursor()
 cursor.execute('select distinct id_text, public_glossed from documents_info order by id_text')
@@ -23,6 +24,7 @@ for elem in resultIDtextINipa:
     resultIDtextINipaRaw.append(elem[0])
 
 def makingTiersFlex(id_text, root, shortDialect):
+    annotationIDcounter = 0
     resultTokenList = [] #Hilfsliste mit allen id_token
     dictIDtokens = {} #Dict mit allen id_tokens über alle Sätze + dazugehörige time slots: jedes Token hat 6 time slots,
     # da ein Token aus bis zu 6 Morphemen bestehen kann. Morpheme sind die kleinste Einheit, weshalb jedem Morphem ein
@@ -37,56 +39,6 @@ def makingTiersFlex(id_text, root, shortDialect):
         lang = 'mns'
     if shortDialect.endswith('K') == True or shortDialect.endswith('A') == True:
         lang = 'kca'
-
-    def makingMorphLemmaPosGloss(columnName, tier):
-        for key, value in dictIDtokens.items():
-            cursor.execute('select ' +columnName+ '_0 from flex_tokens where id_token = '+str(key))
-            result0 = cursor.fetchone()
-            if result0[0] != '':
-                annotation = SubElement(tier, 'ANNOTATION')
-                alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", LANG_REF=lang, TIME_SLOT_REF1='ts'+str(value[0]), TIME_SLOT_REF2='ts'+str(value[0]+1))
-                annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
-                annotationValue.text = result0[0]
-
-            cursor.execute('select ' +columnName+ '_1 from flex_tokens where id_token = '+str(key))
-            result1 = cursor.fetchone()
-            if result1[0] != '':
-                annotation = SubElement(tier, 'ANNOTATION')
-                alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", LANG_REF=lang, TIME_SLOT_REF1='ts'+str(value[0]+1), TIME_SLOT_REF2='ts'+str(value[0]+2))
-                annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
-                annotationValue.text = result1[0]
-
-            cursor.execute('select ' +columnName+ '_2 from flex_tokens where id_token = '+str(key))
-            result2 = cursor.fetchone()
-            if result2[0] != '':
-                annotation = SubElement(tier, 'ANNOTATION')
-                alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", TIME_SLOT_REF1='ts'+str(value[0]+2), TIME_SLOT_REF2='ts'+str(value[0]+3))
-                annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
-                annotationValue.text = result2[0]
-
-            cursor.execute('select ' +columnName+ '_3 from flex_tokens where id_token = '+str(key))
-            result3 = cursor.fetchone()
-            if result3[0] != '':
-                annotation = SubElement(tier, 'ANNOTATION')
-                alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", LANG_REF=lang, TIME_SLOT_REF1='ts'+str(value[0]+3), TIME_SLOT_REF2='ts'+str(value[0]+4))
-                annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
-                annotationValue.text = result3[0]
-
-            cursor.execute('select ' +columnName+ '_4 from flex_tokens where id_token = '+str(key))
-            result4 = cursor.fetchone()
-            if result4[0] != '':
-                annotation = SubElement(tier, 'ANNOTATION')
-                alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", LANG_REF=lang, TIME_SLOT_REF1='ts'+str(value[0]+4), TIME_SLOT_REF2='ts'+str(value[0]+5))
-                annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
-                annotationValue.text = result4[0]
-
-            cursor.execute('select ' +columnName+ '_5 from flex_tokens where id_token = '+str(key))
-            result5 = cursor.fetchone()
-            if result5[0] != '':
-                annotation = SubElement(tier, 'ANNOTATION')
-                alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", LANG_REF=lang, TIME_SLOT_REF1='ts'+str(value[0]+5), TIME_SLOT_REF2='ts'+str(value[1]))
-                annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
-                annotationValue.text = result5[0]
 
     #SQL-Befehle
     #Liste mit id_sentences für einen Text
@@ -110,9 +62,10 @@ def makingTiersFlex(id_text, root, shortDialect):
 
     tierRef = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="refT", TIER_ID="ref@ABC")
     annotation = SubElement(tierRef, 'ANNOTATION')
-    alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", TIME_SLOT_REF1='ts0', TIME_SLOT_REF2='ts1')
+    alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts0', TIME_SLOT_REF2='ts1')
     annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
     annotationValue.text = id_text
+    annotationIDcounter += 1
 
     tierOrth = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="orthT", PARENT_REF="ref@ABC", LANG_REF=lang, TIER_ID="orth@ABC")
     for id in resultIdSentences:
@@ -122,33 +75,92 @@ def makingTiersFlex(id_text, root, shortDialect):
         minIDtoken = result1sentence[0][1]
         maxIDtoken = result1sentence[0][2]
         annotation = SubElement(tierOrth, 'ANNOTATION')
-        alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", LANG_REF=lang, TIME_SLOT_REF1='ts'+str(dictIDtokens[minIDtoken][0]), TIME_SLOT_REF2='ts'+str(dictIDtokens[maxIDtoken][1]))
+        alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(dictIDtokens[minIDtoken][0]), TIME_SLOT_REF2='ts'+str(dictIDtokens[maxIDtoken][1]))
         annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
         annotationValue.text = result1sentence[0][0]
+        annotationIDcounter += 1
 
     tierWord = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="wordT", PARENT_REF="orth@ABC", LANG_REF=lang, TIER_ID="word@ABC")
     for key, value in dictIDtokens.items():
         cursor.execute('select form_token from flex_tokens where id_token = %s', (key))
         resultWord = cursor.fetchone()
         annotation = SubElement(tierWord, 'ANNOTATION')
-        alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", LANG_REF=lang, TIME_SLOT_REF1='ts'+str(value[0]), TIME_SLOT_REF2='ts'+str(value[1]))
+        alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(value[0]), TIME_SLOT_REF2='ts'+str(value[1]))
         annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
         annotationValue.text = resultWord[0]
+        annotationIDcounter += 1
+
+    def makingMorphLemmaPosGloss(columnName, tier, annotationIDcounter):
+        for key, value in dictIDtokens.items():
+            cursor.execute('select ' +columnName+ '_0 from flex_tokens where id_token = '+str(key))
+            result0 = cursor.fetchone()
+            if result0[0] != '':
+                annotation = SubElement(tier, 'ANNOTATION')
+                alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(value[0]), TIME_SLOT_REF2='ts'+str(value[0]+1))
+                annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
+                annotationValue.text = result0[0]
+                annotationIDcounter += 1
+
+            cursor.execute('select ' +columnName+ '_1 from flex_tokens where id_token = '+str(key))
+            result1 = cursor.fetchone()
+            if result1[0] != '':
+                annotation = SubElement(tier, 'ANNOTATION')
+                alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(value[0]+1), TIME_SLOT_REF2='ts'+str(value[0]+2))
+                annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
+                annotationValue.text = result1[0]
+                annotationIDcounter += 1
+
+            cursor.execute('select ' +columnName+ '_2 from flex_tokens where id_token = '+str(key))
+            result2 = cursor.fetchone()
+            if result2[0] != '':
+                annotation = SubElement(tier, 'ANNOTATION')
+                alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(value[0]+2), TIME_SLOT_REF2='ts'+str(value[0]+3))
+                annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
+                annotationValue.text = result2[0]
+                annotationIDcounter += 1
+
+            cursor.execute('select ' +columnName+ '_3 from flex_tokens where id_token = '+str(key))
+            result3 = cursor.fetchone()
+            if result3[0] != '':
+                annotation = SubElement(tier, 'ANNOTATION')
+                alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(value[0]+3), TIME_SLOT_REF2='ts'+str(value[0]+4))
+                annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
+                annotationValue.text = result3[0]
+                annotationIDcounter += 1
+
+            cursor.execute('select ' +columnName+ '_4 from flex_tokens where id_token = '+str(key))
+            result4 = cursor.fetchone()
+            if result4[0] != '':
+                annotation = SubElement(tier, 'ANNOTATION')
+                alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(value[0]+4), TIME_SLOT_REF2='ts'+str(value[0]+5))
+                annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
+                annotationValue.text = result4[0]
+                annotationIDcounter += 1
+
+            cursor.execute('select ' +columnName+ '_5 from flex_tokens where id_token = '+str(key))
+            result5 = cursor.fetchone()
+            if result5[0] != '':
+                annotation = SubElement(tier, 'ANNOTATION')
+                alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(value[0]+5), TIME_SLOT_REF2='ts'+str(value[1]))
+                annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
+                annotationValue.text = result5[0]
+                annotationIDcounter += 1
+        return annotationIDcounter
 
     tierMorph = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="morphT", PARENT_REF="word@ABC", LANG_REF=lang, TIER_ID="morph@ABC")
-    makingMorphLemmaPosGloss('segment', tierMorph)
+    annotationIDcounter = makingMorphLemmaPosGloss('segment', tierMorph, annotationIDcounter)
 
     tierMorphVar = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="orthT", PARENT_REF="morph@ABC", LANG_REF=lang, TIER_ID="morph-var@ABC")
-    makingMorphLemmaPosGloss('vt', tierMorphVar)
+    annotationIDcounter = makingMorphLemmaPosGloss('vt', tierMorphVar, annotationIDcounter)
 
     tierLemma = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="lemmaT", PARENT_REF="morph@ABC", LANG_REF=lang, TIER_ID="lemma@ABC")
-    makingMorphLemmaPosGloss('cf', tierLemma)
+    annotationIDcounter = makingMorphLemmaPosGloss('cf', tierLemma, annotationIDcounter)
 
     tierGloss = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="glossT", PARENT_REF="lemma@ABC", LANG_REF=lang, TIER_ID="gloss@ABC")
-    makingMorphLemmaPosGloss('gls', tierGloss)
+    annotationIDcounter = makingMorphLemmaPosGloss('gls', tierGloss, annotationIDcounter)
 
     tierPos = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="posT", PARENT_REF="lemma@ABC", LANG_REF=lang, TIER_ID="pos@ABC")
-    makingMorphLemmaPosGloss('pos', tierPos)
+    annotationIDcounter = makingMorphLemmaPosGloss('pos', tierPos, annotationIDcounter)
 
     tierRus = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="ft-rusT", PARENT_REF="orth@ABC", LANG_REF='ru', TIER_ID="ft-rus@ABC")
     tierHun = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="ft-hunT", PARENT_REF="orth@ABC", LANG_REF='hu', TIER_ID="ft-hun@ABC")
@@ -166,41 +178,46 @@ def makingTiersFlex(id_text, root, shortDialect):
         result = cursor.fetchone()
         if result[0] != '':
             annotation = SubElement(tierRus, 'ANNOTATION')
-            alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", LANG_REF='ru', TIME_SLOT_REF1='ts'+str(dictIDtokens[minIDtoken][0]), TIME_SLOT_REF2='ts'+str(dictIDtokens[maxIDtoken][1]))
+            alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(dictIDtokens[minIDtoken][0]), TIME_SLOT_REF2='ts'+str(dictIDtokens[maxIDtoken][1]))
             annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
             annotationValue.text = result[0]
+            annotationIDcounter += 1
 
         cursor.execute('select trans_hu from flex_sentences where id_sentence = %s', (id_sentence))
         result = cursor.fetchone()
         if result[0] != '':
             annotation = SubElement(tierHun, 'ANNOTATION')
-            alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", LANG_REF='hu', TIME_SLOT_REF1='ts'+str(dictIDtokens[minIDtoken][0]), TIME_SLOT_REF2='ts'+str(dictIDtokens[maxIDtoken][1]))
+            alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(dictIDtokens[minIDtoken][0]), TIME_SLOT_REF2='ts'+str(dictIDtokens[maxIDtoken][1]))
             annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
             annotationValue.text = result[0]
+            annotationIDcounter += 1
 
         cursor.execute('select trans_en from flex_sentences where id_sentence = %s', (id_sentence))
         result = cursor.fetchone()
         if result[0] != '':
             annotation = SubElement(tierEng, 'ANNOTATION')
-            alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", LANG_REF='en', TIME_SLOT_REF1='ts'+str(dictIDtokens[minIDtoken][0]), TIME_SLOT_REF2='ts'+str(dictIDtokens[maxIDtoken][1]))
+            alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(dictIDtokens[minIDtoken][0]), TIME_SLOT_REF2='ts'+str(dictIDtokens[maxIDtoken][1]))
             annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
             annotationValue.text = result[0]
+            annotationIDcounter += 1
 
         cursor.execute('select trans_fi from flex_sentences where id_sentence = %s', (id_sentence))
         result = cursor.fetchone()
         if result[0] != '':
             annotation = SubElement(tierFin, 'ANNOTATION')
-            alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", LANG_REF='fi', TIME_SLOT_REF1='ts'+str(dictIDtokens[minIDtoken][0]), TIME_SLOT_REF2='ts'+str(dictIDtokens[maxIDtoken][1]))
+            alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(dictIDtokens[minIDtoken][0]), TIME_SLOT_REF2='ts'+str(dictIDtokens[maxIDtoken][1]))
             annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
             annotationValue.text = result[0]
+            annotationIDcounter += 1
 
         cursor.execute('select trans_de from flex_sentences where id_sentence = %s', (id_sentence))
         result = cursor.fetchone()
         if result[0] != '':
             annotation = SubElement(tierDeu, 'ANNOTATION')
-            alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", LANG_REF='de', TIME_SLOT_REF1='ts'+str(dictIDtokens[minIDtoken][0]), TIME_SLOT_REF2='ts'+str(dictIDtokens[maxIDtoken][1]))
+            alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(dictIDtokens[minIDtoken][0]), TIME_SLOT_REF2='ts'+str(dictIDtokens[maxIDtoken][1]))
             annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
             annotationValue.text = result[0]
+            annotationIDcounter += 1
 
     #linguistic types
     ltRef = SubElement(root, 'LINGUISTIC_TYPE', GRAPHIC_REFERENCES="false", LINGUISTIC_TYPE_ID="refT", TIME_ALIGNABLE="true")
@@ -219,6 +236,7 @@ def makingTiersFlex(id_text, root, shortDialect):
     ltMorphVar = SubElement(root, 'LINGUISTIC_TYPE', CONSTRAINTS="Symbolic_Association", GRAPHIC_REFERENCES="false", LINGUISTIC_TYPE_ID="morph-varT", TIME_ALIGNABLE="false")
 
 def makingTiersIPA(id_text, root, shortDialect):
+    annotationIDcounter = 0
     #verschiedene Counter für die time slots
     tsCounter = 0
     tsCounterIntern = 0
@@ -258,29 +276,32 @@ def makingTiersIPA(id_text, root, shortDialect):
 
     tierRef = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="refT", TIER_ID="ref@ABC")
     annotation = SubElement(tierRef, 'ANNOTATION')
-    alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", TIME_SLOT_REF1='ts0', TIME_SLOT_REF2='ts1')
+    alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts0', TIME_SLOT_REF2='ts1')
     annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
     annotationValue.text = id_text
+    annotationIDcounter += 1
 
-    tierOrth = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="orthT", PARENT_REF="ref@ABC", TIER_ID="orth@ABC")
-    tierWord = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="wordT", PARENT_REF="orth@ABC", TIER_ID="word@ABC")
+    tierOrth = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="orthT", LANG_REF=lang, PARENT_REF="ref@ABC", TIER_ID="orth@ABC")
+    tierWord = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="wordT", LANG_REF=lang, PARENT_REF="orth@ABC", TIER_ID="word@ABC")
         #Sätze erstellen
     for sent in listSents:
         listWords = sent.split(' ')
         tsCounterEnd += len(listWords)
         annotation = SubElement(tierOrth, 'ANNOTATION')
-        alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", LANG_REF=lang, TIME_SLOT_REF1='ts'+str(tsCounterStart), TIME_SLOT_REF2='ts'+str(tsCounterEnd))
+        alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(tsCounterStart), TIME_SLOT_REF2='ts'+str(tsCounterEnd))
         annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
         annotationValue.text = sent
+        annotationIDcounter += 1
         tsCounterWord = tsCounterStart
         tsCounterStart += len(listWords)
             #Wörter erstellen
         for word in listWords:
             if word != '':
                 annotation = SubElement(tierWord, 'ANNOTATION')
-                alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID="default", LANG_REF=lang, TIME_SLOT_REF1='ts'+str(tsCounterWord), TIME_SLOT_REF2='ts'+str(tsCounterWord+1))
+                alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(tsCounterWord), TIME_SLOT_REF2='ts'+str(tsCounterWord+1))
                 annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
                 annotationValue.text = word
+                annotationIDcounter += 1
                 tsCounterWord += 1
 
         #linguistic types
@@ -339,11 +360,16 @@ def makingELAN(id_text, publicGlossed):
     #1. Leerzeile entfernen
     strippedNewLine = stripped.lstrip()
 
+    #print(strippedNewLine)
     outputFile.write(strippedNewLine)
     outputFile.close()
 
+#test
+#makingELAN(1129, 0) #für IPA
+#makingELAN(741, 1) #für Flex
+
 #alle Texte durchgehen
-for elem in resultIDtexts:
-    idText = elem[0]
-    publicGlossed = elem[1]
-    makingELAN(idText, publicGlossed)
+ for elem in resultIDtexts:
+     idText = elem[0]
+     publicGlossed = elem[1]
+     makingELAN(idText, publicGlossed)
