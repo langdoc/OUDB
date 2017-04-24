@@ -10,6 +10,8 @@ This file is for preliminary notes, as well as links to available tools or other
   http://www.mpi.nl/tools/elan/EAF_Annotation_Format_3.0_and_ELAN.pdf
 * how to upload CMDI via Lamus (& especially what kind of CMDI template you need):
 https://tla.mpi.nl/wp-content/uploads/2012/09/Migration-CMDI_archiving-workflow.pdf
+* CMDI templates: lat-corpus & lat-session:
+https://catalog.clarin.eu/ds/ComponentRegistry/#/?itemId=clarin.eu:cr1:p_1407745712064&_k=rgocqj
 
 We will create two different types of ELAN files:
 
