@@ -12,6 +12,8 @@ This file is for preliminary notes, as well as links to available tools or other
 https://tla.mpi.nl/wp-content/uploads/2012/09/Migration-CMDI_archiving-workflow.pdf
 * CMDI templates: lat-corpus & lat-session:
 https://catalog.clarin.eu/ds/ComponentRegistry/#/?itemId=clarin.eu:cr1:p_1407745712064&_k=rgocqj
+* FAQ CMDI
+https://www.clarin.eu/content/faq-metadata
 
 We will create two different types of ELAN files:
 
