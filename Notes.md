@@ -14,6 +14,8 @@ https://tla.mpi.nl/wp-content/uploads/2012/09/Migration-CMDI_archiving-workflow.
 https://catalog.clarin.eu/ds/ComponentRegistry/#/?itemId=clarin.eu:cr1:p_1407745712064&_k=rgocqj
 * FAQ CMDI
 https://www.clarin.eu/content/faq-metadata
+* how to CMDI
+https://infra.clarin.eu/cmd/doc/howto.html
 * PID
 http://www.pidconsortium.eu/wp-content/uploads/kalman-epicapiv1.pdf
 https://github.com/ufal/clarin-dspace/wiki/PIDs-Persistent-Identifiers
