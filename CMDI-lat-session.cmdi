@@ -26,12 +26,12 @@ http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1311927752306
 							<!-- Lamus-Anleitung S. 21: -->
                            <ResourceType>text/x-eaf+xml</ResourceType>
 						   <!-- note that both a normal URL and a handle Persistent Identifier can be used for the ResourceRef -->
-                           <ResourceRef>test string</ResourceRef>
+                           <ResourceRef>res_1</ResourceRef>
                      </ResourceProxy>
                      <ResourceProxy id="test attribute">
 							<!-- Lamus-Anleitung S. 20: -->
                            <ResourceType>audio/x-wav</ResourceType>
-                           <ResourceRef>test string</ResourceRef>
+                           <ResourceRef>res_2</ResourceRef>
                      </ResourceProxy>
                </ResourceProxyList>
          </Resources>
@@ -89,13 +89,13 @@ http://www.clarin.eu/cmd/1/profiles/clarin.eu:cr1:p_1311927752306
                     <Resources>
 							<!-- optional  -->
 							<!-- dieselbe Nummer bei ref wie oben bei ResourceProxy eintragen -->
-                           <MediaFile ref="test attribute"> 
+                           <MediaFile ref="res_2"> 
                                  <Type>audio</Type>
                                  <Format>audio/x-wav</Format>
                                  <Size>test string</Size>
                            </MediaFile>
                            <!-- optional  -->
-                           <WrittenResource ref="test attribute">
+                           <WrittenResource ref="res_1">
                                  <Date>test string</Date>
                                  <Type>annotation</Type>
                                  <SubType>test string</SubType>
