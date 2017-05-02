@@ -16,6 +16,8 @@ https://catalog.clarin.eu/ds/ComponentRegistry/#/?itemId=clarin.eu:cr1:p_1407745
 https://www.clarin.eu/content/faq-metadata
 * how to CMDI
 https://infra.clarin.eu/cmd/doc/howto.html
+* Md-Schema (you need this for a Lamus friendly CMDI):
+https://infra.clarin.eu/cmd/example/example-md-schema.xsd
 * PID
 http://www.pidconsortium.eu/wp-content/uploads/kalman-epicapiv1.pdf
 https://github.com/ufal/clarin-dspace/wiki/PIDs-Persistent-Identifiers
