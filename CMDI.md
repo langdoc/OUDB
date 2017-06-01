@@ -11,10 +11,9 @@ how to create cmdi using arbil: (https://www.clarin.eu/faq/how-do-i-create-new-c
 
 ##OUDB-Metadata
 
-| 1 | 2 |
-| 3 | 4 |
 
 ###MD
+
 CMDI key | DB value | example value
 ------------ | ------------- | -------------
 Name | dialect-KUERZEL.'_'.id_text | YK_1523
@@ -27,17 +26,20 @@ Project | 'OUDB' |
 
 
 ###Content_Language
+
 CMDI key | DB value | example value
 ------------ | ------------- | -------------
 Id | dialect-GROUP-ISO | ISO639-3:kca
 Name | dialect-GROUP-NAME | Khanty
 
 ###Content_Language>descriptions
+
 CMDI key | DB value | example value
 ------------ | ------------- | -------------
 Description | dialect | yugan khanty (YK)
 
 ###Actor:Collector
+
 CMDI key | DB value | example value
 ------------ | ------------- | -------------
 Name | collector | Kayukova & Schön (AZ)
@@ -48,6 +50,7 @@ Anonymized | 'Unspecified' |
 
 
 ###Actor:Speaker/Signer (optional, repeated)
+
 CMDI key | DB value | example value
 ------------ | ------------- | -------------
 Name | informant-ABKUERZUNG (LISTE ZSÓFI + generiert von Ira) | OAL
