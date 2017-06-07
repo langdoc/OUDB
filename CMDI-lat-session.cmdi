@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<CMD CMDVersion="1.1" xmlns="http://www.clarin.eu/cmd/" xmlns:cmd="https://infra.clarin.eu/cmd/" xmlns:functx="http://www.functx.com" xmlns:imdi="http://www.mpi.nl/IMDI/Schema/IMDI" xmlns:iso="http://www.iso.org/" xmlns:lat="http://lat.mpi.nl/" xmlns:sil="http://www.sil.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.clarin.eu/cmd/ https://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/1.1/profiles/clarin.eu:cr1:p_1407745712035/xsd">
+<CMD CMDVersion="1.1" xmlns="http://www.clarin.eu/cmd/" xmlns:cmd="http://www.clarin.eu/cmd/" xmlns:functx="http://www.functx.com" xmlns:imdi="http://www.mpi.nl/IMDI/Schema/IMDI" xmlns:iso="http://www.iso.org/" xmlns:lat="http://lat.mpi.nl/" xmlns:sil="http://www.sil.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.clarin.eu/cmd/ http://catalog.clarin.eu/ds/ComponentRegistry/rest/registry/profiles/clarin.eu:cr1:p_1407745712035/xsd">
+
   <Header>
     <MdCreator>Ira</MdCreator>
     <MdCreationDate>2017-05-02</MdCreationDate>
@@ -11,8 +12,9 @@
     <ResourceProxyList>
 	<ResourceProxy id="res1">
         <ResourceType mimetype="text/x-eaf+xml">Resource</ResourceType>
-        <ResourceRef>KK_1129.eaf</ResourceRef>
+        <ResourceRef lat:localURI="KK_1129.eaf">KK_1129.eaf</ResourceRef>
       </ResourceProxy>
+      
 	</ResourceProxyList>
     <JournalFileProxyList></JournalFileProxyList>
     <ResourceRelationList></ResourceRelationList>
@@ -50,15 +52,45 @@
           <EventStructure>Unspecified</EventStructure>
           <Channel>Unspecified</Channel>
         </CommunicationContext>
+        <Content_Languages>
+               <Content_Language>
+                  <Id>ISO639-3:kca</Id>
+                  <Name>Khanty</Name>
+                  <Dominant>Unspecified</Dominant>
+                  <SourceLanguage>Unspecified</SourceLanguage>
+                  <TargetLanguage>Unspecified</TargetLanguage>
+               </Content_Language>
+            </Content_Languages>
       </Content>
-      <Actors/>
+       <Actors>
+            <Actor>
+               <Role>Speaker/Signer</Role>
+               <Name>Гришкина, Пелагея Алексеевна (Лельхова)</Name>
+               <FamilySocialRole>Unspecified</FamilySocialRole>
+               <EthnicGroup>Unspecified</EthnicGroup>
+               <BirthDate>0000</BirthDate>
+               <Sex>Unspecified</Sex>
+               <Education>Unspecified</Education>
+               <Age/>
+            </Actor>
+            <Actor>
+               <Role>Collector</Role>
+               <Name>Schmidt, Éva (SC)</Name>
+               <FamilySocialRole>Unspecified</FamilySocialRole>
+               <EthnicGroup>Unspecified</EthnicGroup>
+               <BirthDate>0000</BirthDate>
+               <Sex>Unspecified</Sex>
+               <Education>Unspecified</Education>
+               <Age/>
+            </Actor>
+         </Actors>
       <Resources>
-        <WrittenResource>
+        <WrittenResource ref="res1">
           <Date>Unspecified</Date>
           <Type>document</Type>
           <SubType></SubType>
           <Format>text/x-eaf+xml</Format>  
-          <Size>Unspecified</Size>
+          <Size></Size>
           <Derivation>Unspecified</Derivation>
           <CharacterEncoding>Unspecified</CharacterEncoding>
           <ContentEncoding>Unspecified</ContentEncoding>
