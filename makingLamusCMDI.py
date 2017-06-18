@@ -14,13 +14,7 @@ hostname, portname, username, passwdname, dbname = getZugangsdaten()
 dbObj = pymysql.connect(host = hostname, port = portname, user = username, passwd = passwdname, db = dbname, charset='utf8')
 cursor = dbObj.cursor()
 
-#1. Variante
-# cursorDict = dbObj.cursor(pymysql.cursors.DictCursor)
-# cursorDict.execute('Select id_text, dialect, title_vernacular, genre_content, informant, collector from documents_info where public = 1')
-# listDictDocInfo = cursorDict.fetchall()
-
-#2. Variante
-cursor.execute('Select id_text, dialect, title_vernacular, genre_content, informant, collector from documents_info where public = 1')
+cursor.execute('Select id_text, dialect, title_vernacular, genre_content, informant, collector, public_glossed from documents_info where public = 1')
 listDocInfo = list(cursor)
 
 #audio
@@ -37,6 +31,7 @@ for singleText in listDocInfo:
     genre = singleText[3]
     informant = singleText[4]
     collector = singleText[5]
+    ipa = singleText[6]
     nameAbbreviation = dialect[-3:-1]
     filenameElan = nameAbbreviation + '_'+str(idText)+ '.eaf'
     if dialect[-2] == 'K':
@@ -239,7 +234,19 @@ for singleText in listDocInfo:
     #1. Leerzeile entfernen
     strippedNewLine = stripped.lstrip()
 	
-    outputFile = open("LamusCMDI/"+nameAbbreviation+"_" +str(idText)+".cmdi","w",encoding="utf-8")
-    outputFile.write(strippedNewLine)
-    outputFile.close()
-
+    if idText not in audioDict.keys() and ipa == 0:
+        outputFile = open("ipaOnly/"+nameAbbreviation+"_" +str(idText)+".cmdi","w",encoding="utf-8")
+        outputFile.write(strippedNewLine)
+        outputFile.close()
+    if idText not in audioDict.keys() and ipa == 1:
+        outputFile = open("flexOnly/"+nameAbbreviation+"_" +str(idText)+".cmdi","w",encoding="utf-8")
+        outputFile.write(strippedNewLine)
+        outputFile.close()
+    if idText in audioDict.keys() and ipa == 0:
+        outputFile = open("ipaAudio/"+nameAbbreviation+"_" +str(idText)+".cmdi","w",encoding="utf-8")
+        outputFile.write(strippedNewLine)
+        outputFile.close()
+    if idText in audioDict.keys() and ipa == 1:
+        outputFile = open("flexAudio/"+nameAbbreviation+"_" +str(idText)+".cmdi","w",encoding="utf-8")
+        outputFile.write(strippedNewLine)
+        outputFile.close()
