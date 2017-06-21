@@ -47,63 +47,63 @@ for singleText in listDocInfo:
     root.set('xsi:noNamespaceSchemaLocation', "http://www.mpi.nl/tools/elan/EAFv2.8.xsd")
     header = SubElement(root, 'HEADER')
     
-    #ipa only
-    # if idText not in audiosList and flex == 0:
+    ##ipa only
+    if idText not in audiosList and flex == 0:
         #aktuellsten IPA-Text finden
-        # cursor.execute('SELECT max(id_IPA) FROM `ipa` where id_text = %s;',(idText))
-        # resultLatestIPA = cursor.fetchone()
-        # cursor.execute('select IPA_text from ipa where id_IPA ='+str(resultLatestIPA[0]))
-        # resultIPAtext = cursor.fetchone()
-        # ipa = resultIPAtext[0]
-        # ipa = ipa.replace('#', '')
+        cursor.execute('SELECT max(id_IPA) FROM `ipa` where id_text = %s;',(idText))
+        resultLatestIPA = cursor.fetchone()
+        cursor.execute('select IPA_text from ipa where id_IPA ='+str(resultLatestIPA[0]))
+        resultIPAtext = cursor.fetchone()
+        ipa = resultIPAtext[0]
+        ipa = ipa.replace('#', '')
         #Anzahl der W�rter f�r Anzahl der ben�igten time slots berechnen --> ein Wort hat einen time slot
-        # numTS =  len(ipa.split())
+        numTS =  len(ipa.split())
         #Liste mit Saetzen aus dem IPA-Text gernerieren
-        # delimiterSent = ['.', '!', '?']
-        # for char in delimiterSent: #Delimiter f�r S�tze festlegen
-            # if char in ipa:
-                # ipa = ipa.replace(char, char[0]+'endmarker')
-        # listSents = re.split('endmarker',ipa) #ein Satz = 1 Eintrag
-        # annotationIDcounter = 0
+        delimiterSent = ['.', '!', '?']
+        for char in delimiterSent: #Delimiter f�r S�tze festlegen
+            if char in ipa:
+                ipa = ipa.replace(char, char[0]+'endmarker')
+        listSents = re.split('endmarker',ipa) #ein Satz = 1 Eintrag
+        annotationIDcounter = 0
         #verschiedene Counter für die time slots
-        # timeValueCounter = 0
-        # tsCounterStart = 0
-        # tsCounterEnd = 0
-        # timeOrder = SubElement(root, 'TIME_ORDER')
+        timeValueCounter = 0
+        tsCounterStart = 0
+        tsCounterEnd = 0
+        timeOrder = SubElement(root, 'TIME_ORDER')
         #so viele time slots anlegen, wie es Woerter gibt
-        # tsRef = 0
-        # for x in range(0, numTS+len(listSents)):
-            # timeSlot = SubElement(timeOrder, 'TIME_SLOT', TIME_SLOT_ID='ts'+str(tsRef), TIME_VALUE=str(timeValueCounter))
-            # tsRef += 1
-            # timeValueCounter += 400
-        # tierRef = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="refT", TIER_ID="ref@ABC")
-        # annotation = SubElement(tierRef, 'ANNOTATION')
-        # alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts0', TIME_SLOT_REF2='ts1')
-        # annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
-        # annotationValue.text = str(idText)
-        # annotationIDcounter += 1
-        # tierOrth = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="orthT", LANG_REF=langRef, PARENT_REF="ref@ABC", TIER_ID="orth@ABC")
-        # tierWord = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="wordT", LANG_REF=langRef, PARENT_REF="orth@ABC", TIER_ID="word@ABC")
+        tsRef = 0
+        for x in range(0, numTS+len(listSents)):
+            timeSlot = SubElement(timeOrder, 'TIME_SLOT', TIME_SLOT_ID='ts'+str(tsRef), TIME_VALUE=str(timeValueCounter))
+            tsRef += 1
+            timeValueCounter += 400
+        tierRef = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="refT", TIER_ID="ref@ABC")
+        annotation = SubElement(tierRef, 'ANNOTATION')
+        alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts0', TIME_SLOT_REF2='ts1')
+        annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
+        annotationValue.text = str(idText)
+        annotationIDcounter += 1
+        tierOrth = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="orthT", LANG_REF=langRef, PARENT_REF="ref@ABC", TIER_ID="orth@ABC")
+        tierWord = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="wordT", LANG_REF=langRef, PARENT_REF="orth@ABC", TIER_ID="word@ABC")
             #Saetze erstellen
-        # for sent in listSents:
-            # listWords = sent.split(' ')
-            # tsCounterEnd += len(listWords)
-            # annotation = SubElement(tierOrth, 'ANNOTATION')
-            # alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(tsCounterStart), TIME_SLOT_REF2='ts'+str(tsCounterEnd))
-            # annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
-            # annotationValue.text = sent
-            # annotationIDcounter += 1
-            # tsCounterWord = tsCounterStart
-            # tsCounterStart += len(listWords)
+        for sent in listSents:
+            listWords = sent.split(' ')
+            tsCounterEnd += len(listWords)
+            annotation = SubElement(tierOrth, 'ANNOTATION')
+            alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(tsCounterStart), TIME_SLOT_REF2='ts'+str(tsCounterEnd))
+            annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
+            annotationValue.text = sent
+            annotationIDcounter += 1
+            tsCounterWord = tsCounterStart
+            tsCounterStart += len(listWords)
                 #Woerter erstellen
-            # for word in listWords:
-                # if word != '':
-                    # annotation = SubElement(tierWord, 'ANNOTATION')
-                    # alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(tsCounterWord), TIME_SLOT_REF2='ts'+str(tsCounterWord+1))
-                    # annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
-                    # annotationValue.text = word
-                    # annotationIDcounter += 1
-                    # tsCounterWord += 1
+            for word in listWords:
+                if word != '':
+                    annotation = SubElement(tierWord, 'ANNOTATION')
+                    alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(tsCounterWord), TIME_SLOT_REF2='ts'+str(tsCounterWord+1))
+                    annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
+                    annotationValue.text = word
+                    annotationIDcounter += 1
+                    tsCounterWord += 1
                     
     #ipa audio
     if idText in audiosList and flex == 0:
@@ -136,14 +136,14 @@ for singleText in listDocInfo:
         property = SubElement(header, 'PROPERTY')
         property.set('NAME', 'lastUsedAnnotationId')
         
-        #aktuellsten IPA-Text finden
+        ##aktuellsten IPA-Text finden
         cursor.execute('SELECT max(id_IPA) FROM `ipa` where id_text = %s;',(idText))
         resultLatestIPA = cursor.fetchone()
         cursor.execute('select IPA_text from ipa where id_IPA ='+str(resultLatestIPA[0]))
         resultIPAtext = cursor.fetchone()
         ipa = resultIPAtext[0]
         ipa = ipa.replace('#', '')
-        #Liste mit Saetzen aus dem IPA-Text generieren
+        ##Liste mit Saetzen aus dem IPA-Text generieren
         delimiterSent = ['.', '!', '?']
         for char in delimiterSent: #Delimiter fuer Saetze festlegen
             if char in ipa:
@@ -158,7 +158,7 @@ for singleText in listDocInfo:
         annotationValue.text = str(idText)
         annotationIDcounter += 1
         tierOrth = SubElement(root, 'TIER', LINGUISTIC_TYPE_REF="orthT", LANG_REF=langRef, PARENT_REF="ref@ABC", TIER_ID="orth@ABC")
-        #Saetze erstellen
+        ##Saetze erstellen
         for index in range(1, len(tsDict)+1): #+1
             tsRef1aligAnn = tsDict[index][0]
             tsRef2aligAnn = tsDict[index][2]
@@ -419,15 +419,17 @@ for singleText in listDocInfo:
     strippedNewLine = stripped.lstrip()
     
     ##ipa only
+    # if idText == 736 and flex == 0:
+
     # if idText not in audiosList and flex == 0:
-        # outputFile = open("ipaOnly/"+nameAbbreviation+"_" +str(idText)+".eaf","w",encoding="utf-8")
-        # outputFile.write(strippedNewLine)
-        # outputFile.close()
+    #      outputFile = open("ipaOnly/"+nameAbbreviation+"_" +str(idText)+".eaf","w",encoding="utf-8")
+    #      outputFile.write(strippedNewLine)
+    #      outputFile.close()
     #ipa + audio
-    if idText in audiosList and flex == 0:
-        outputFile = open("ipaAudio/"+nameAbbreviation+"_" +str(idText)+".eaf","w",encoding="utf-8")
-        outputFile.write(strippedNewLine)
-        outputFile.close()
+    if idText in audiosList and flex == 0 and idText not in [736,738]:
+       outputFile = open("ipaAudio/"+nameAbbreviation+"_" +str(idText)+".eaf","w",encoding="utf-8")
+       outputFile.write(strippedNewLine)
+       outputFile.close()
         # if idText not in audiosList and flex == 1:
             # outputFile = open("flexOnly/"+nameAbbreviation+"_" +str(idText)+".eaf","w",encoding="utf-8")
             # outputFile.write(strippedNewLine)
