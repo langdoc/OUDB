@@ -99,7 +99,7 @@ for singleText in listDocInfo:
     contact = SubElement(project, 'Contact')
     content = SubElement(latSession, 'Content')
     genreContent = SubElement(content, 'Genre')
-    #genreContent.text = genre
+    genreContent.text = genre
     subGenre = SubElement(content, 'SubGenre')
     subGenre.text = 'Unspecified'
     task = SubElement(content, 'Task')
