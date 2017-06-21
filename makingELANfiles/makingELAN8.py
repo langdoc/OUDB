@@ -31,7 +31,7 @@ for elem in audios:
     audiosList.append(elem[0])
 
 for singleText in listDocInfo:
-    if singleText[0] == 728:
+  #  if singleText[0] == 728:
         idText = singleText[0]
         dialect = singleText[1]
         flex = singleText[2]
