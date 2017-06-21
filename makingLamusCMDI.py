@@ -162,8 +162,44 @@ for singleText in listDocInfo:
     sex.text = 'Unspecified'
     education = SubElement(actor2, 'Education')
     age = SubElement(actor2, 'Age')
-    
+
+    #neu:
+    nameProject.text = 'OUDB'
+    sourceLang.text = 'Unspecified'
+    targetLang.text = 'Unspecified'
+
     resourcesUnten = SubElement(latSession, 'Resources')
+
+    if idText in audioDict.keys():
+        filenameAudio = audioDict[idText][0]
+        size = audioDict[idText][1]
+
+        resourceProxyAudio = SubElement(resourceProxyList, 'ResourceProxy', id='res2')
+        resourceTypeAudio = SubElement(resourceProxyAudio, 'ResourceType', mimetype="audio/x-wav")
+        resourceTypeAudio.text = 'Resource'
+        resourceRefAudio = SubElement(resourceProxyAudio, 'ResourceRef')
+        resourceRefAudio.set('lat:localURI', filenameAudio)
+        resourceRefAudio.text = filenameAudio
+
+        mediaFile = SubElement(resourcesUnten, 'MediaFile', ref='res2')
+        typeMediaFile = SubElement(mediaFile, 'Type')
+        formatMediaFile = SubElement(mediaFile, 'Format')
+        formatMediaFile.text = 'audio/x-wav'
+        sizeMediaFile = SubElement(mediaFile, 'Size')
+        #sizeMediaFile.text = str(size)
+        quality = SubElement(mediaFile, 'Quality')
+        quality.text = 'Unspecified'
+        recConditions = SubElement(mediaFile, 'RecordingConditions')
+        timePos = SubElement(mediaFile, 'TimePosition')
+        start = SubElement(timePos, 'Start')
+        start.text = 'Unspecified'
+        end = SubElement(timePos, 'End')
+        end.text = 'Unspecified'
+
+        #neu:
+        typeMediaFile.text = 'audio'
+
+
     writtenResource = SubElement(resourcesUnten, 'WrittenResource')
     writtenResource.set('ref', 'res1')
     dateWrittenRes = SubElement(writtenResource, 'Date')
@@ -194,33 +230,22 @@ for singleText in listDocInfo:
     owner = SubElement(access, 'Owner')
     publisher = SubElement(access, 'Publisher')
     references = SubElement(latSession, 'References')
-    
-    if idText in audioDict.keys():
-        filenameAudio = audioDict[idText][0]
-        size = audioDict[idText][1]
-        
-        resourceProxyAudio = SubElement(resourceProxyList, 'ResourceProxy', id='res2')
-        resourceTypeAudio = SubElement(resourceProxyAudio, 'ResourceType', mimetype="audio/x-wav")
-        resourceTypeAudio.text = 'Resource'
-        resourceRefAudio = SubElement(resourceProxyAudio, 'ResourceRef')
-        resourceRefAudio.set('lat:localURI', filenameAudio)
-        resourceRefAudio.text = filenameAudio
-        
-        mediaFile = SubElement(resourcesUnten, 'MediaFile', ref='res2')
-        typeMediaFile = SubElement(mediaFile, 'Type')
-        formatMediaFile = SubElement(mediaFile, 'Format')
-        formatMediaFile.text = 'audio/x-wav'
-        sizeMediaFile = SubElement(mediaFile, 'Size')
-        sizeMediaFile.text = str(size)
-        quality = SubElement(mediaFile, 'Quality')
-        quality.text = 'Unspecified'
-        recConditions = SubElement(mediaFile, 'RecordingConditions')
-        timePos = SubElement(mediaFile, 'TimePosition')
-        start = SubElement(timePos, 'Start')
-        start.text = 'Unspecified'
-        end = SubElement(timePos, 'End')
-        end.text = 'Unspecified'
-        
+    #neu:
+    langID.text = 'Unspecified'
+    anonym.text = 'Unspecified'
+    anonym.text = 'Unspecified'
+    typeValidation.text = 'Unspecified'
+    methodValidation.text = 'Unspecified'
+    level.text = 'Unspecified'
+    owner.text = 'Unspecified'
+    publisher.text = 'Unspecified'
+
+
+    #neu:
+    contact2 = SubElement(access, 'Contact')
+
+
+
     #Leerzeichen einfügen, um das Dokument lesbarer zu machen:
     rough_string = ET.tostring(root, 'utf-8')
     dom = minidom.parseString(rough_string)
@@ -235,18 +260,18 @@ for singleText in listDocInfo:
     strippedNewLine = stripped.lstrip()
 	
     if idText not in audioDict.keys() and ipa == 0:
-        outputFile = open("ipaOnly/"+nameAbbreviation+"_" +str(idText)+".cmdi","w",encoding="utf-8")
+        outputFile = open("ipaOnlyCMDI/"+nameAbbreviation+"_" +str(idText)+".cmdi","w",encoding="utf-8")
         outputFile.write(strippedNewLine)
         outputFile.close()
     if idText not in audioDict.keys() and ipa == 1:
-        outputFile = open("flexOnly/"+nameAbbreviation+"_" +str(idText)+".cmdi","w",encoding="utf-8")
+        outputFile = open("flexOnlyCMDI/"+nameAbbreviation+"_" +str(idText)+".cmdi","w",encoding="utf-8")
         outputFile.write(strippedNewLine)
         outputFile.close()
     if idText in audioDict.keys() and ipa == 0:
-        outputFile = open("ipaAudio/"+nameAbbreviation+"_" +str(idText)+".cmdi","w",encoding="utf-8")
+        outputFile = open("ipaAudioCMDI/"+nameAbbreviation+"_" +str(idText)+".cmdi","w",encoding="utf-8")
         outputFile.write(strippedNewLine)
         outputFile.close()
     if idText in audioDict.keys() and ipa == 1:
-        outputFile = open("flexAudio/"+nameAbbreviation+"_" +str(idText)+".cmdi","w",encoding="utf-8")
+        outputFile = open("flexAudioCMDI/"+nameAbbreviation+"_" +str(idText)+".cmdi","w",encoding="utf-8")
         outputFile.write(strippedNewLine)
         outputFile.close()
