@@ -114,12 +114,12 @@ for singleText in listDocInfo:
         cursor.execute("Select audio_filename from digital_resources where audio_filename regexp '.wav$' and id_text = %s;",(idText))
         audioFile = cursor.fetchone()
         audioDict = {}
-        textDict = {} #für Sätze aus elan_data
+        textDict = {} #für Saetze aus elan_data
         i=1 #für Sätze aus elan_data
         for elem in tmpList:
             audioDict[elem[2]] = int(elem[0]*1000), int(elem[1]*1000)
-            textDict[i] = elem[3] #für Sätze aus elan_data
-            i = i + 1 #für Sätze aus elan_data
+            textDict[i] = elem[3] #für Saetze aus elan_data
+            i = i + 1 #für Saetze aus elan_data
 
         timeOrder = SubElement(root, 'TIME_ORDER')
         tsCounter = 0
@@ -171,7 +171,7 @@ for singleText in listDocInfo:
             annotation = SubElement(tierOrth, 'ANNOTATION')
             alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(tsRef1aligAnn), TIME_SLOT_REF2='ts'+str(tsRef2aligAnn))
             annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
-            annotationValue.text = textDict[index] #Sätze aus elan_data verwendet! (aus ipa: auskommentiert)
+            annotationValue.text = textDict[index] #Saetze aus elan_data verwendet! (aus ipa: auskommentiert)
             #annotationValue.text = listSents[index]
             annotationIDcounter += 1    
             
