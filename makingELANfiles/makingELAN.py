@@ -20,7 +20,7 @@ dbObj = pymysql.connect(host = hostname, port = portname, user = username, passw
 cursor = dbObj.cursor()
 
 #alle benoetigten Texte holen
-cursor.execute('Select id_text, dialect, public_glossed from documents_info where public = 1 and id_text = 728')
+cursor.execute('Select id_text, dialect, public_glossed from documents_info where public = 1') # and id_text = 1515')
 listDocInfo = list(cursor)
 
 #Texte mit audio
@@ -209,7 +209,7 @@ for singleText in listDocInfo:
         
         #künstliche time codes anlegen
         timeCode = 0
-        timeCodeEnd = 600
+        timeCodeEnd = 1200 #darf bei time slot später keine float-zahl werden; muss durch 6 teilbar sein; Wert unten auch 2mal aendern
         for id in resultIdSentences:
             cursor.execute('select id_token from flex_tokens where id_sentence = %s ', (id))
             tokenIDList = list(cursor)
@@ -223,11 +223,12 @@ for singleText in listDocInfo:
             timeValueSpan = timeCodeSpan/numTSperSent #Länge eines time slots
             
             sentToPrint = ''
+            timeSlotCounterCopy = timeSlotCounter #timeslotcountercopy (fuer Woerter an timeslotcounter (fuer saetze) anpassen
             for elem in tokenIDList:
                 cursor.execute('select form_token, segment_0, segment_1, segment_2, segment_3, segment_4, segment_5, vt_0, vt_1, vt_2, vt_3, vt_4, vt_5, cf_0, cf_1, cf_2, cf_3, cf_4, cf_5, gls_0, gls_1, gls_2, gls_3, gls_4, gls_5, pos_0, pos_1, pos_2, pos_3, pos_4, pos_5 from flex_tokens where id_token = %s ', (elem[0]))
                 tokenLevel = cursor.fetchall()
                 #print(tokenLevel)
-                sentToPrint += tokenLevel[0][0] #Wörter zu einem Satz zusammenfügen
+                sentToPrint += tokenLevel[0][0] + ' ' #Wörter zu einem Satz zusammenfügen
                 #Wörter mit time slots anlegen
                 #form_token = ganzes Wort
                 if tokenLevel[0][0] != '':
@@ -236,8 +237,7 @@ for singleText in listDocInfo:
                     annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
                     annotationValue.text = tokenLevel[0][0]
                     annotationIDcounter += 1
-                timeSlotCounterCopy += 1
-                #morph 0            
+                #morph 0
                 if tokenLevel[0][1] != '':
                    annotation = SubElement(tierMorph, 'ANNOTATION')
                    alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(timeSlotCounterCopy), TIME_SLOT_REF2='ts'+str(timeSlotCounterCopy+1))
@@ -450,8 +450,10 @@ for singleText in listDocInfo:
                    alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(timeSlotCounterCopy+5), TIME_SLOT_REF2='ts'+str(timeSlotCounterCopy+6))
                    annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
                    annotationValue.text = tokenLevel[0][30]
-                   annotationIDcounter += 1        
-            
+                   annotationIDcounter += 1
+
+                timeSlotCounterCopy += 6
+
             #child tiers für Originalsatz füllen
             annotation = SubElement(tierOrth, 'ANNOTATION')
             alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(timeSlotCounter), TIME_SLOT_REF2='ts'+str(timeSlotCounter+numTSperSent))
@@ -494,9 +496,9 @@ for singleText in listDocInfo:
                 timeSlot = SubElement(timeOrder, 'TIME_SLOT', TIME_SLOT_ID='ts'+str(timeSlotCounter), TIME_VALUE=str(int(timeCode+singleToken*timeValueSpan)))#timeValue für ein Token + time value für ein einzelnes Morphem
                 annotationIDcounter += 1
                 timeSlotCounter += 1    
-        #time codes für nächsten Satz erhöhen --> ein Satz hat eine Länge von 600
-            timeCode += 600
-            timeCodeEnd += 600
+        #time codes für nächsten Satz erhöhen --> ein Satz hat eine Länge von 1200
+            timeCode += 1200
+            timeCodeEnd += 1200
         
     #flex audio
     if idText in audiosList and flex == 1:
@@ -520,7 +522,7 @@ for singleText in listDocInfo:
         dictTS = {} #dict mit allen time slots
         timeSlotCounter = 0
         timeSlotCounterCopy = 0
-        
+
         #parent tier für time slots anlegen
         timeOrder = SubElement(root, 'TIME_ORDER')
         #tier Ref anlegen
@@ -560,13 +562,17 @@ for singleText in listDocInfo:
             numIDtokens = len(tokenIDList) #Anzahl der Token in einem Satz
             numTSperSent = numIDtokens*6 #jedes Token kann aus bis zu 6 Morphemen bestehen, jedes Morphem bekommt einen time slot; numTSperSent = Anzahl time slots pro Satz
             timeValueSpan = timeCodeSpan/numTSperSent #Länge eines time slots
-            
+
             sentToPrint = ''
+            timeSlotCounterCopy = timeSlotCounter #time slotcountercopy (fuer Woerter) an timeslotcounter (fuer saetze) anpassen
+
             for elem in tokenIDList:
+
+
                 cursor.execute('select form_token, segment_0, segment_1, segment_2, segment_3, segment_4, segment_5, vt_0, vt_1, vt_2, vt_3, vt_4, vt_5, cf_0, cf_1, cf_2, cf_3, cf_4, cf_5, gls_0, gls_1, gls_2, gls_3, gls_4, gls_5, pos_0, pos_1, pos_2, pos_3, pos_4, pos_5 from flex_tokens where id_token = %s ', (elem[0]))
                 tokenLevel = cursor.fetchall()
                 #print(tokenLevel)
-                sentToPrint += tokenLevel[0][0] #Wörter zu einem Satz zusammenfügen
+                sentToPrint += tokenLevel[0][0] + ' ' #Wörter zu einem Satz zusammenfügen
                 #Wörter mit time slots anlegen
                 #form_token = ganzes Wort
                 if tokenLevel[0][0] != '':
@@ -575,8 +581,7 @@ for singleText in listDocInfo:
                     annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
                     annotationValue.text = tokenLevel[0][0]
                     annotationIDcounter += 1
-                timeSlotCounterCopy += 1
-                #morph 0            
+                #morph 0
                 if tokenLevel[0][1] != '':
                    annotation = SubElement(tierMorph, 'ANNOTATION')
                    alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(timeSlotCounterCopy), TIME_SLOT_REF2='ts'+str(timeSlotCounterCopy+1))
@@ -789,8 +794,10 @@ for singleText in listDocInfo:
                    alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(timeSlotCounterCopy+5), TIME_SLOT_REF2='ts'+str(timeSlotCounterCopy+6))
                    annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
                    annotationValue.text = tokenLevel[0][30]
-                   annotationIDcounter += 1        
-            
+                   annotationIDcounter += 1
+
+                timeSlotCounterCopy += 6
+
             #child tiers für Originalsatz füllen
             annotation = SubElement(tierOrth, 'ANNOTATION')
             alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(timeSlotCounter), TIME_SLOT_REF2='ts'+str(timeSlotCounter+numTSperSent))
