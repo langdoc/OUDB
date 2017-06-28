@@ -20,7 +20,7 @@ dbObj = pymysql.connect(host = hostname, port = portname, user = username, passw
 cursor = dbObj.cursor()
 
 #alle benoetigten Texte holen
-cursor.execute('Select id_text, dialect, public_glossed from documents_info where public = 1') # and id_text = 1515')
+cursor.execute('Select id_text, dialect, public_glossed from documents_info where public = 1 and id_text = 1313')
 listDocInfo = list(cursor)
 
 #Texte mit audio
@@ -109,14 +109,18 @@ for singleText in listDocInfo:
                     
     #ipa audio
     if idText in audiosList and flex == 0:
-        cursor.execute('Select time_code, time_code_end, nr_sentence from elan_data where id_text = %s;',(idText))
+        cursor.execute('Select time_code, time_code_end, nr_sentence, elan_sentence from elan_data where id_text = %s;',(idText))
         tmpList = list(cursor)
         cursor.execute("Select audio_filename from digital_resources where audio_filename regexp '.wav$' and id_text = %s;",(idText))
         audioFile = cursor.fetchone()
         audioDict = {}
+        textDict = {} #für Sätze aus elan_data
+        i=1 #für Sätze aus elan_data
         for elem in tmpList:
             audioDict[elem[2]] = int(elem[0]*1000), int(elem[1]*1000)
-      
+            textDict[i] = elem[3] #für Sätze aus elan_data
+            i = i + 1 #für Sätze aus elan_data
+
         timeOrder = SubElement(root, 'TIME_ORDER')
         tsCounter = 0
         tsDict = {} 
@@ -167,7 +171,8 @@ for singleText in listDocInfo:
             annotation = SubElement(tierOrth, 'ANNOTATION')
             alignableAnnotation = SubElement(annotation, 'ALIGNABLE_ANNOTATION', ANNOTATION_ID='a'+str(annotationIDcounter), TIME_SLOT_REF1='ts'+str(tsRef1aligAnn), TIME_SLOT_REF2='ts'+str(tsRef2aligAnn))
             annotationValue = SubElement(alignableAnnotation, 'ANNOTATION_VALUE')
-            annotationValue.text = listSents[index]
+            annotationValue.text = textDict[index] #Sätze aus elan_data verwendet! (aus ipa: auskommentiert)
+            #annotationValue.text = listSents[index]
             annotationIDcounter += 1    
             
     #flex only   
